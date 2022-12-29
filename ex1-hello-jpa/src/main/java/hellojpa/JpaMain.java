@@ -15,7 +15,7 @@ public class JpaMain {
         tx.begin();
 
 
-        ////try catch하는게 정석, but 실제는 spring이 해줘서 다 없어짐
+        //try catch하는게 정석, but 실제는 spring이 해줘서 다 없어짐
         try {
 //        //-------------------------2-2------------------------------
 //        Member member = new Member();

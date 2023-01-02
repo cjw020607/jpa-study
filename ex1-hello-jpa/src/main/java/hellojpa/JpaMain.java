@@ -185,7 +185,7 @@ public class JpaMain {
             Member member=new Member();
             member.setUsername("member1");
             //(1),(2) 둘 중 하나로
-            
+
             //(1)member기준으로 team넣기
             //member.setTeam(team);//<-
 

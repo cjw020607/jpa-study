@@ -8,27 +8,40 @@ import java.util.List;
 @Entity
 @Table(name="ORDERS")
 public class Order {
+    //----------------------------------4-5----------------------
     @Id @GeneratedValue
     @Column(name="ORDER_ID")
     private Long id;
 
-    //양방향일때 연관관계 주인
-    @ManyToOne
-    @JoinColumn(name="MEMBER_ID")
-      private Member member;
+   @Column(name="MEMBER_ID")
+    private Long memberId;
 
-    //양방향
-    @OneToMany(mappedBy="order")
-    private List<OrderItem> orderItems=new ArrayList<>();
+//    @ManyToOne
+//    @JoinColumn(name="MEMBER_ID")
+//      private Member member;
+//
+//    @OneToOne
+//    @JoinColumn(name="DELIVERY_ID")
+//    private Delivery delivery;
+//    @OneToMany(mappedBy="order")
+//    private List<OrderItem> orderItems=new ArrayList<>();
     private LocalDateTime orderDate;
+
+//    public Member getMember() {
+//        return member;
+//    }
+//
+//    public void setMember(Member member) {
+//        this.member = member;
+//    }
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    public void addOrderItem(OrderItem orderItem){
-        orderItems.add(orderItem);
-        orderItem.setOrder(this);
-    }
+//    public void addOrderItem(OrderItem orderItem){
+//        orderItems.add(orderItem);
+//        orderItem.setOrder(this);
+//    }
 
     public Long getId() {
         return id;
@@ -38,16 +51,24 @@ public class Order {
         this.id = id;
     }
 
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
+//    public Member getMember() {
+//        return member;
+//    }
+//
+//    public void setMember(Member member) {
+//        this.member = member;
+//    }
 
     public LocalDateTime getOrderDate() {
         return orderDate;
+    }
+
+    public Long getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
     }
 
     public void setOrderDate(LocalDateTime orderDate) {

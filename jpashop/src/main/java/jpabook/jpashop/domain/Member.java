@@ -7,8 +7,8 @@ import java.util.List;
 @Entity
 public class Member {
 
-
-    @Id @GeneratedValue
+    //-------------------------4-5-----------------------
+    @Id @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="MEMBER_ID")
     private Long id;
     private String name;
@@ -16,9 +16,8 @@ public class Member {
     private String street;
     private String zipcode;
 
-    //양방향
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders=new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<Order> orders=new ArrayList<>();
 
     public Long getId() {
         return id;

@@ -184,13 +184,20 @@ public class JpaMain {
 
             Member member=new Member();
             member.setUsername("member1");
-            member.setTeam(team);//<-
+            //(1),(2) 둘 중 하나로
+            
+            //(1)member기준으로 team넣기
+            //member.setTeam(team);//<-
+
             em.persist(member);
+
+            //(2)team기준으로 member넣기
+            team.addMember(member);
 
 //            team.getMembers().add(member);//양방향 연관관계일때는 양쪽에 다 셋팅해주기
 
-//            em.flush();
-//            em.clear();
+            em.flush();
+            em.clear();
 
             Team findTeam=em.find(Team.class,team.getId());//1차캐시에 있음
             List<Member> members=findTeam.getMembers();

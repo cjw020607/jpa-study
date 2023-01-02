@@ -93,7 +93,14 @@ public class Member {
         return team;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+//    public void setTeam(Team team) {
+//        this.team = team;
+//    }
+   // -------------------5-3------------------------
+    //5-2에서 setTeam만 바꾸기
+    //team.getMembers().add(member)를 까먹는 경우가 생기기 때문에 jpamain에서 안 쓸 경우 setTeam에 넣어주기
+    public void setTeam(Team team){
+        this.team=team;
+        team.getMembers().add(this);
     }
 }

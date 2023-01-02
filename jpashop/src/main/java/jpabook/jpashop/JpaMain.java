@@ -19,23 +19,18 @@ public class JpaMain {
 
         tx.begin();
         try {
-            //-----------------------4-5------------------
+
+            Order order=new Order();
+            //(1)
+            order.addOrderItem(new OrderItem());
+            em.persist(order);
+
+//            //(2)
+//            OrderItem orderItem=new OrderItem();
+//            orderItem.setOrder(order);
+//            em.persist(orderItem);
+
             tx.commit();
-//            Order order=em.find(Order.class,1L);
-//            Long memberId=order.getMemberId();
-//            Member member=em.find(Member.class, memberId);
-//
-//            Member findMember=order.getMember();//위 세줄을 한번에
-
-
-//            Order order=new Order();
-//            order.addOrderItem(new OrderItem());
-
-//            Book book=new Book();
-//            book.setName("JPA");
-//            book.setAuthor("김영한");
-//            em.persist(book);
-
         }catch(Exception e){
             tx.rollback();
         }finally{

@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name="MEMBER_ID")
@@ -34,6 +35,7 @@ public class Member {
 //    //다대다 한계 극복
 //    @OneToMany(mappedBy="member")
 //    private List<MemberProduct> memberProducts=new ArrayList<>();
+
 
     public Long getId() {
         return id;

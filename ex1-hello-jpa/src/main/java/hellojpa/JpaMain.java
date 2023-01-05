@@ -31,6 +31,11 @@ public class JpaMain {
             Movie findMovie=em.find(Movie.class,movie.getId());
             System.out.println("findMovie="+findMovie);
 
+//            //명확하게 찔러서 조회할땐 괜찮은데 그 외에는 데이터가 있는지 없는지 테이블 다 찾아봐야함
+//            Item item=em.find(Item.class,movie.getId());
+//            System.out.println("Item="+item);
+
+
             tx.commit();
         }catch(Exception e){
             tx.rollback();

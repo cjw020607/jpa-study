@@ -3,9 +3,9 @@ package hellojpa;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) //단일전략(쿼리 한번만 나감)
-//@DiscriminatorColumn //단일전략에서는 없어도 자동으로 생성
-public class Item {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) //구현 클래스마다 테이블 전략
+//@DiscriminatorColumn//이거 넣어도 사용이 안됨(의미가 없음)
+public abstract class Item {
     @Id @GeneratedValue
     private Long id;
 

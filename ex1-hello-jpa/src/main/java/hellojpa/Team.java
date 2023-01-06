@@ -1,4 +1,3 @@
-//------------------5-1-------------------
 package hellojpa;
 
 import javax.persistence.*;

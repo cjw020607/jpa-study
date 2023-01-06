@@ -2,9 +2,7 @@ package hellojpa;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +20,6 @@ public class Member extends BaseEntity {
     @ManyToOne
     @JoinColumn(name="TEAM_ID",insertable=false,updatable=false)//읽기 전용 매핑
     private Team team;
-
-    @OneToOne
-    @JoinColumn(name="LOCKER_ID")
-    private Locker locker;
 
     //다대다
     @ManyToMany

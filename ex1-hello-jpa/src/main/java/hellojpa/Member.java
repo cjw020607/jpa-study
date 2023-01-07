@@ -17,8 +17,8 @@ public class Member extends BaseEntity {
     private String username;
 
     //일대다 양방향(공식적x)
-    @ManyToOne
-    @JoinColumn(name="TEAM_ID",insertable=false,updatable=false)//읽기 전용 매핑
+    @ManyToOne(fetch=FetchType.LAZY)//프록시 객체로 재회(member class만 db에서 조회)
+    @JoinColumn
     private Team team;
 
     //다대다
@@ -37,6 +37,22 @@ public class Member extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public String getUsername() {

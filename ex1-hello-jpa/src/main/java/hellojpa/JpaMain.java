@@ -28,8 +28,20 @@ public class JpaMain {
 //            em.persist(child1);
 //            em.persist(child2);
 
-            //cascade 할 경우 parent만 해도 child persist됨
+            //cascade 할 경우 parent만 persist 해도 child persist됨
             em.persist(parent);
+
+            em.flush();
+            em.clear();
+
+            Parent findParent=em.find(Parent.class,parent.getId());
+
+            //자식 엔티티를 컬렉션에서 제거, orphanRemoval이 true이므로 delete됨
+            findParent.getChildList().remove(0);
+
+            //----------
+            //Parent 제거될 때 자식도 함게 delete 됨
+//            em.remove(findParent); 
 
             tx.commit();
         }catch(Exception e){

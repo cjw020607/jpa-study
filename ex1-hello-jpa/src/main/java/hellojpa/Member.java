@@ -17,7 +17,7 @@ public class Member extends BaseEntity {
     private String username;
 
     //일대다 양방향(공식적x)
-    @ManyToOne(fetch=FetchType.LAZY)//프록시 객체로 재회(member class만 db에서 조회)
+    @ManyToOne(fetch=FetchType.EAGER)//즉시로딩
     @JoinColumn
     private Team team;
 

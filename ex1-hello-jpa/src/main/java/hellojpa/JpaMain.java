@@ -32,14 +32,17 @@ public class JpaMain {
 
             Member m=em.find(Member.class,member.getId());
 
-            System.out.println("m="+m.getTeam().getClass());//프록시
+            System.out.println("m="+m.getTeam().getClass()); //프록시 아닌 진짜
 
             System.out.println("=============");
-            m.getTeam().getName();//team의 속성을 사용하는 시점(getName())에 프록시 객체 초기화, db에서 값 가져옴
+            System.out.println("teamName="+m.getTeam().getName());//초기화 하지 않고 진짜 값 출력
             System.out.println("=============");
 
+            //jpql에서 문제
 
-
+            //sql:select * from Member가 먼저 db에 나감
+            //member를 보니 team이 eager여서 sql: select * from Team where TEAM_ID=xxxx 나감
+//            List<Member> members=em.createQuery("select m from Member m",Member.class).getResultList();
 
             tx.commit();
         }catch(Exception e){

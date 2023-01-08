@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Table(name="ORDERS")
 public class Order extends BaseEntity {
@@ -13,16 +16,16 @@ public class Order extends BaseEntity {
     private Long id;
 
     //양방향일때 연관관계 주인
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name="MEMBER_ID")
       private Member member;
 
-    @OneToOne
+    @OneToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name="DELIVERY_ID")
     private Delivery delivery;
 
     //양방향
-    @OneToMany(mappedBy="order")
+    @OneToMany(mappedBy="order",cascade=ALL)
     private List<OrderItem> orderItems=new ArrayList<>();
     private LocalDateTime orderDate;
 

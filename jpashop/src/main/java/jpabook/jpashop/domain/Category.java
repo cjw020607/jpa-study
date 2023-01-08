@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 public class Category extends BaseEntity {
 
@@ -11,7 +13,7 @@ public class Category extends BaseEntity {
     private Long id;
     private String name;
 
-    @ManyToOne //자식 입장에서 부모 한명
+    @ManyToOne(fetch=LAZY) //자식 입장에서 부모 한명
     @JoinColumn(name="PARENT_ID")
     private Category parent;
 

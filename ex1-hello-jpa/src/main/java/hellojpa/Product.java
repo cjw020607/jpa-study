@@ -11,13 +11,6 @@ public class Product {
 
     private String name;
 
-    //다대다 양방향
-    @ManyToMany(mappedBy="products")
-    private List<Member> members=new ArrayList<>();
-
-//    //다대다 한계극복
-//    @OneToMany(mappedBy="product")
-//    private List<MemberProduct> memberProducts=new ArrayList<>();
 
     public Long getId() {
         return id;

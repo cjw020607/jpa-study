@@ -3,11 +3,12 @@ package hellojpa;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Member extends BaseEntity {
+public class Member {
 
     @Id @GeneratedValue
     @Column(name="MEMBER_ID")
@@ -16,20 +17,25 @@ public class Member extends BaseEntity {
     @Column(name="USERNAME")
     private String username;
 
-    //일대다 양방향(공식적x)
-    @ManyToOne(fetch=FetchType.EAGER)//즉시로딩
-    @JoinColumn
-    private Team team;
+    //기간 Period
+    @Embedded
+    private Period workPeriod;
 
-    //다대다
-    @ManyToMany
-    @JoinTable(name="MEMBER_PRODUCT")
-    private List<Product> products=new ArrayList<>();
+    //주소
+    @Embedded
+    private Address homeAddress;
 
-//    //다대다 한계 극복
-//    @OneToMany(mappedBy="member")
-//    private List<MemberProduct> memberProducts=new ArrayList<>();
-
+    //주소 두개 되면 오류, Attribute Overriddes 사용하여 해결
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="city",
+            column = @Column(name="WORK_CITY")),
+            @AttributeOverride(name="street",
+                    column = @Column(name="WORK_STREET")),
+            @AttributeOverride(name="zipcode",
+                    column = @Column(name="WORK_ZIPCODE")),
+    })
+    private Address workAddress;
 
     public Long getId() {
         return id;
@@ -39,27 +45,27 @@ public class Member extends BaseEntity {
         this.id = id;
     }
 
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Period getWorkPeriod() {
+        return workPeriod;
+    }
+
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
+    }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 }

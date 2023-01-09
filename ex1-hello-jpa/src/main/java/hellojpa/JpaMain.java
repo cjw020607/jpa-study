@@ -16,32 +16,12 @@ public class JpaMain {
 
         try{
 
-            Child child1=new Child();
-            Child child2=new Child();
+            Member member= new Member();
+            member.setUsername("hello");
+            member.setHomeAddress(new Address("city","street","1000"));
+            member.setWorkPeriod(new Period());
 
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
-
-            //원래 다 해줘야 함
-//            em.persist(parent);
-//            em.persist(child1);
-//            em.persist(child2);
-
-            //cascade 할 경우 parent만 persist 해도 child persist됨
-            em.persist(parent);
-
-            em.flush();
-            em.clear();
-
-            Parent findParent=em.find(Parent.class,parent.getId());
-
-            //자식 엔티티를 컬렉션에서 제거, orphanRemoval이 true이므로 delete됨
-            findParent.getChildList().remove(0);
-
-            //----------
-            //Parent 제거될 때 자식도 함게 delete 됨
-//            em.remove(findParent); 
+            em.persist(member);
 
             tx.commit();
         }catch(Exception e){

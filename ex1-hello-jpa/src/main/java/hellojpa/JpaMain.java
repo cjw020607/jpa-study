@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
+import java.util.Set;
 
 
 public class JpaMain {
@@ -15,39 +17,56 @@ public class JpaMain {
         tx.begin();
 
         try{
-            Address address=new Address("city","street","1000");
 
-            //member1, member2 같은 주소 사용
-            Member member= new Member();
+            //값타입 저장
+            Member member=new Member();
             member.setUsername("member1");
-            member.setHomeAddress(address);
+            member.setHomeAddress(new Address("homeCity","street","10000"));
+
+            member.getFavoriteFoods().add("치킨");
+            member.getFavoriteFoods().add("족발");
+            member.getFavoriteFoods().add("피자");
+
+            member.getAddressHistory().add(new Address("old1","street","10000"));
+            member.getAddressHistory().add(new Address("old2","street","10000"));
+
             em.persist(member);
+            //값 타입은 따로 persist 할 필요x member에 의존
 
-            //부작용
-//            Member member2= new Member();
-//            member2.setUsername("member2");
-//            member2.setHomeAddress(address);
-//            em.persist(member2);
-//
-//            //member1만 바꾸고 싶은데 결과는 member2도 바뀜
-//            member.getHomeAddress().setCity("newCity");
+            em.flush();
+            em.clear();
 
-            //---------
-            //부작용을 해결하려면 값을 복사해서 사용해야 함
-//            Address copyAddress=new Address(address.getCity(), address.getStreet(), address.getZipcode());
+            //------------
+            //값 타입 조회
+//            System.out.println("========== START ===========");
+//            Member findMember=em.find(Member.class,member.getId());
 //
-//            Member member2= new Member();
-//            member2.setUsername("member2");
-//            member2.setHomeAddress(copyAddress);
-//            em.persist(member2);
-//
-//            //member1만 바뀜
-//            member.getHomeAddress().setCity("newCity");
+//            List<Address> addressHistory= findMember.getAddressHistory();
+//            for (Address address : addressHistory) {
+//                System.out.println("address="+address.getCity());
+//            }
+//            Set<String> favoriteFoods=findMember.getFavoriteFoods();
+//            for (String favoriteFood : favoriteFoods) {
+//                System.out.println("favoriteFood = "+favoriteFood);
+//            }
+            //-----------
+            //값 타입 수정
+            System.out.println("========== START ===========");
+            Member findMember=em.find(Member.class,member.getId());
+            //homeCity->newCity
+            //findMember.getHomeAddress().setCity("newCity"); <-x side effect 생김
+            //통으로 바꿔야함
+            Address a=findMember.getHomeAddress();
+            findMember.setHomeAddress((new Address("newCity",a.getStreet(),a.getZipcode())));
 
-            //---------
-            //불변 객체 만들기 위해 setter 없다는 가정 하에 값 바꾸기 (값을 통으로 바꿈)
-            Address newAddress=new Address("NewCity", address.getStreet(), address.getZipcode());
-            member.setHomeAddress(newAddress);
+            //값타입 컬렉션 수정 (치킨->한식)
+            //지우고 다시 넣어야 함
+            findMember.getFavoriteFoods().remove("치킨");
+            findMember.getFavoriteFoods().add("한식");
+
+            //equals 잘못 설정하면 remove 안되고 계속 add만 될 수 있음
+            findMember.getAddressHistory().remove(new Address("old1","street","10000"));
+            findMember.getAddressHistory().add(new Address("newCity1","street","10000"));
 
             tx.commit();
         }catch(Exception e){

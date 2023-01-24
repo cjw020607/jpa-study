@@ -18,27 +18,36 @@ public class JpaMain {
 
         try{
 
-            for(int i=0;i<100;i++) {
+            Team team=new Team();
+            team.setName("teamA");
+            em.persist(team);
+
                 Member member = new Member();
-                member.setUsername("member"+i);
-                member.setAge(i);
+                member.setUsername("member");
+                member.setAge(10);
+
+                member.setTeam(team);
+
                 em.persist(member);
-            }
+
             em.flush();
             em.clear();
 
-            //나이순으로 정렬
-            List<Member> result = em.createQuery("select m from Member m order by m.age desc", Member.class)
-                    //0번째부터
-                    .setFirstResult(0)
-                    //10개 가져옴
-                    .setMaxResults(10)
+            //내부 조인
+            //String query="select m from Member m inner join m.team t";
+            //외부 조인
+            //String query="select m from Member m left join m.team t";
+            //세타 조인(다 곱하기)
+            //String query="select m from Member m,Team t where m.username=t.name";
+
+            //조인 대상 필터링
+            //String query="select m from Member m left join m.team t on t.name='teamA'";
+            //연관관계 없는 엔티티 외부 조인(left 빼면 내부 조인)
+            String query="select m from Member m left join Team t on m.username=t.name";
+
+            List<Member> result = em.createQuery(query, Member.class)
                     .getResultList();
 
-            System.out.println("result.size= "+result.size());
-            for (Member member1 : result) {
-                System.out.println("member1 = " + member1);
-            }
 
             tx.commit();
         }catch(Exception e){

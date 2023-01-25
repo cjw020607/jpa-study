@@ -33,17 +33,13 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            //내부 조인
-            //String query="select m from Member m inner join m.team t";
-            //외부 조인
-            //String query="select m from Member m left join m.team t";
-            //세타 조인(다 곱하기)
-            //String query="select m from Member m,Team t where m.username=t.name";
+            //select절에서도 서브쿼리 가능(하이버네이트에서 지원)
+            String query="select (select avg(m1.age) From Member m1) as avgAge from Member m left join Team t on m.username=t.name";
 
-            //조인 대상 필터링
-            //String query="select m from Member m left join m.team t on t.name='teamA'";
-            //연관관계 없는 엔티티 외부 조인(left 빼면 내부 조인)
-            String query="select m from Member m left join Team t on m.username=t.name";
+//            //from절의 서브 쿼리는 불가능 (조인으로 풀 수 있으면 풀어서 해결)
+//            String query="select mm.age, mm.username "+
+//                    " from (select m.age, m.username from Member m) as mm";
+
 
             List<Member> result = em.createQuery(query, Member.class)
                     .getResultList();

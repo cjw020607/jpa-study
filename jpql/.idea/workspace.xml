@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be63f382-62a1-4b3f-a484-4b49e1a7ff9a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/jpql/MemberType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jpql/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/JpaMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpql/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jpql/JpaMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jpql/JpaMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jpql/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jpql/Member.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +59,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="jpql" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jeewo\OneDrive - gachon.ac.kr\code\IdeaProjects\jpa-study\jpql\src\main\resources" />
     </key>
@@ -72,7 +79,7 @@
       <workItem from="1674039639194" duration="71000" />
       <workItem from="1674039919556" duration="3000" />
       <workItem from="1674570016044" duration="5459000" />
-      <workItem from="1674635053287" duration="1678000" />
+      <workItem from="1674635053287" duration="3908000" />
     </task>
     <servers />
   </component>

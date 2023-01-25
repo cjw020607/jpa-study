@@ -23,8 +23,9 @@ public class JpaMain {
             em.persist(team);
 
                 Member member = new Member();
-                member.setUsername("member");
+                member.setUsername("teamA");
                 member.setAge(10);
+                member.setType(MemberType.ADMIN);
 
                 member.setTeam(team);
 
@@ -33,17 +34,27 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            //select절에서도 서브쿼리 가능(하이버네이트에서 지원)
-            String query="select (select avg(m1.age) From Member m1) as avgAge from Member m left join Team t on m.username=t.name";
+            //패키지명 포함해야함
+            String query= "select m.username, 'HELLO', true From Member m "+
+                    "where m.type=jpql.MemberType.ADMIN";
 
-//            //from절의 서브 쿼리는 불가능 (조인으로 풀 수 있으면 풀어서 해결)
-//            String query="select mm.age, mm.username "+
-//                    " from (select m.age, m.username from Member m) as mm";
-
-
-            List<Member> result = em.createQuery(query, Member.class)
+            List<Object[]> result = em.createQuery(query)
                     .getResultList();
 
+            //-------------
+            //패키지명 포함안하고
+//            String query= "select m.username, 'HELLO', true From Member m "+
+//                    "where m.type=:userType";
+//
+//            List<Object[]> result = em.createQuery(query)
+//                    .setParameter("userType",MemberType.ADMIN)
+//                    .getResultList();
+
+            for (Object[] objects : result) {
+                System.out.println("objects[0] = " + objects[0]);
+                System.out.println("objects[1] = " + objects[1]);
+                System.out.println("objects[2] = " + objects[2]);
+            }
 
             tx.commit();
         }catch(Exception e){

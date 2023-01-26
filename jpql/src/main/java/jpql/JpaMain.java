@@ -23,7 +23,8 @@ public class JpaMain {
             em.persist(team);
 
                 Member member = new Member();
-                member.setUsername("teamA");
+                member.setUsername(null);
+                //member.setUsername("관리자");
                 member.setAge(10);
                 member.setType(MemberType.ADMIN);
 
@@ -34,26 +35,30 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            //패키지명 포함해야함
-            String query= "select m.username, 'HELLO', true From Member m "+
-                    "where m.type=jpql.MemberType.ADMIN";
+            //기본 case 식
+            String query=
+                    "select "+
+                            "case when m.age<=10 then '학생요금' "+
+                            "     when m.age>=60 then '경로요금' "+
+                            "     else '일반요금' "+
+                            "end "+
+                    "from Member  m";
+            //------
+            //coalesece: 하나씩 조회해서 null이 아니면 반환
+//            String query="select coalesce(m.username,'이름 없는 회원') as username " +
+//                    "from Member m";
+            //-------
+            //nullif: 두 값이 같으면 null 반환, 다르면 첫번째 값 반환
+            //username이 관리자일때
+//            String query="select nullif(m.username,'관리자') as username "+
+//                    "from Member m";
 
-            List<Object[]> result = em.createQuery(query)
+            List<String> result = em.createQuery(query, String.class)
                     .getResultList();
 
-            //-------------
-            //패키지명 포함안하고
-//            String query= "select m.username, 'HELLO', true From Member m "+
-//                    "where m.type=:userType";
-//
-//            List<Object[]> result = em.createQuery(query)
-//                    .setParameter("userType",MemberType.ADMIN)
-//                    .getResultList();
-
-            for (Object[] objects : result) {
-                System.out.println("objects[0] = " + objects[0]);
-                System.out.println("objects[1] = " + objects[1]);
-                System.out.println("objects[2] = " + objects[2]);
+            for (String s : result) {
+                System.out.println("s = " + s);
+                
             }
 
             tx.commit();

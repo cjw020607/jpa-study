@@ -18,47 +18,68 @@ public class JpaMain {
 
         try{
 
-            Team team=new Team();
-            team.setName("teamA");
-            em.persist(team);
+            Member member1=new Member();
+            member1.setUsername("관리자1");
+            em.persist(member1);
 
-                Member member = new Member();
-                member.setUsername(null);
-                //member.setUsername("관리자");
-                member.setAge(10);
-                member.setType(MemberType.ADMIN);
-
-                member.setTeam(team);
-
-                em.persist(member);
+            Member member2=new Member();
+            member2.setUsername("관리자2");
+            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            //기본 case 식
-            String query=
-                    "select "+
-                            "case when m.age<=10 then '학생요금' "+
-                            "     when m.age>=60 then '경로요금' "+
-                            "     else '일반요금' "+
-                            "end "+
-                    "from Member  m";
-            //------
-            //coalesece: 하나씩 조회해서 null이 아니면 반환
-//            String query="select coalesce(m.username,'이름 없는 회원') as username " +
-//                    "from Member m";
+            //concat
+            //String query="select concat('a','b') From Member m";
+            //String query="select 'a' || 'b' From Member m";
+
+//            List<String> result = em.createQuery(query, String.class)
+//                    .getResultList();
+//
+//            for (String s : result) {
+//                System.out.println("s = " + s);
+//            }
+
             //-------
-            //nullif: 두 값이 같으면 null 반환, 다르면 첫번째 값 반환
-            //username이 관리자일때
-//            String query="select nullif(m.username,'관리자') as username "+
-//                    "from Member m";
+            //substring (몇 번째부터 몇 개 잘라냄)
+//            String query="select substring(m.username,2,3) From Member m";
+//
+//            List<String> result = em.createQuery(query, String.class)
+//                    .getResultList();
+//
+//            for (String s : result) {
+//                System.out.println("s = " + s);
+//            }
+
+            //-------
+            //locate (abcdefg에서 de 찾음)
+            //String query="select locate('de','abcdefg') From Member m";
+//            List<Integer> result = em.createQuery(query, Integer.class)
+//                    .getResultList();
+//
+//            for (Integer s : result) {
+//                System.out.println("s = " + s);
+//            }
+
+            //-------
+            //size (콜렉션의 크기)
+            //String query="select size(t.members) From Team t";
+//            List<Integer> result = em.createQuery(query, Integer.class)
+//                    .getResultList();
+//
+//            for (Integer s : result) {
+//                System.out.println("s = " + s);
+//            }
+
+            //---------
+            //사용자 정의 함수 호출
+            String query="select function('group_concat',m.username) From Member m";
 
             List<String> result = em.createQuery(query, String.class)
                     .getResultList();
 
             for (String s : result) {
                 System.out.println("s = " + s);
-                
             }
 
             tx.commit();

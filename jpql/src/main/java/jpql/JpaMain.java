@@ -45,25 +45,39 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            //컬렉션을 페치 조인할 때 페이징 하면 안됨
-            //String query="select t From Team t join fetch t.members";
+            //엔티티를 파라미터로 전달
+            String query="select m From Member m where m= :member";
 
-            //다대일은 페이징의 문제 없음
-            String query="select m From Member m join fetch m.team t";
+            Member findMember=em.createQuery(query, Member.class)
+                    .setParameter("member",member1)
+                            .getSingleResult();
 
-            List<Team> result=em.createQuery(query, Team.class)
-                    .setFirstResult(0)
-                    .setMaxResults(1)
-                            .getResultList();
+            System.out.println("findMember = " + findMember);
 
-
-            for (Team team : result) {
-                System.out.println("team = " + team.getName()+"|members="+team.getMembers().size());
-                for( Member member: team.getMembers()){
-                    System.out.println("->member = " + member);
-                }
-            }
-
+            //-------------
+            //식별자를 직접 전달
+//            String query="select m From Member m where m.id= :memberId";
+//
+//            Member findMember=em.createQuery(query, Member.class)
+//                    .setParameter("memberId",member1.getId())
+//                    .getSingleResult();
+//
+//            System.out.println("findMember = " + findMember);
+            
+            //------------
+            //외래키
+//            String query="select m From Member m where m.team=:team";
+//
+//            List<Member> members=em.createQuery(query, Member.class)
+//                    .setParameter("team",teamA)
+//                    .getResultList();
+//
+//            for (Member member : members) {
+//                System.out.println("member = " + member);
+//
+//            }
+            
+            
             tx.commit();
         }catch(Exception e){
             tx.rollback();

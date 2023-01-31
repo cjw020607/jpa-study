@@ -45,37 +45,17 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-//            String query="select m From Member m";
-//
-//            //fetch join
-//            //String query="select m From Member m join fetch m.team";
-//            //영속성 컨텍스트에 이미 다 있음. proxy가 아닌 실제 데이터
-//
-//
-//            List<Member> result=em.createQuery(query,Member.class)
-//                            .getResultList();
-//
-//            for (Member member : result) {
-//                System.out.println("member = " + member.getUsername()+", "+member.getTeam().getName());
-//                //회원1, 팀A(SQL) 팀A가 영속성 컨텍스트에 없기 때문에 회원1 전에 쿼리 나감
-//                //회원2, 팀A(1차캐시) 팀A가 영속성 컨텍스트에 있기 때문에 쿼리 안나감
-//                //회원3, 팀B(SQL) 팀B가 영속성 컨텍스트에 없기 때문에 쿼리 나감
-//
-//                //회원 100명 -> N + 1 문제 =>join petch로 해결
-//            }
+            //컬렉션을 페치 조인할 때 페이징 하면 안됨
+            //String query="select t From Team t join fetch t.members";
 
-            //---------------
-            //컬렉션 fetch join(연관된 엔티티도 함께 조회(즉시 로딩))
-            String query="select t From Team t join fetch t.members";
-
-            //중복 제거 (distinct)
-            //String query="select distinct t From Team t join fetch t.members";
-
-            //일반 조인 (연관된 엔티티 함께 조회하지 않음 (팀만 조회하고 회원 엔티티는 조회x))
-            //String query="select t From Team t join t.members m";
+            //다대일은 페이징의 문제 없음
+            String query="select m From Member m join fetch m.team t";
 
             List<Team> result=em.createQuery(query, Team.class)
+                    .setFirstResult(0)
+                    .setMaxResults(1)
                             .getResultList();
+
 
             for (Team team : result) {
                 System.out.println("team = " + team.getName()+"|members="+team.getMembers().size());

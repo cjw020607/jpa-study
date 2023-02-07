@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be63f382-62a1-4b3f-a484-4b49e1a7ff9a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../jpashop2/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpashop2/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpashop2/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpashop2/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpashop2/src/main/java/jpabook/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpashop2/src/main/java/jpabook/Hello.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpashop2/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jpashop2/src/test/java/jpabook/ApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jpql/JpaMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpql/JpaMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +50,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jeewo/OneDrive - gachon.ac.kr/code/IdeaProjects/jpa-study/jpql/src/main/resources&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jeewo/OneDrive - gachon.ac.kr/code/IdeaProjects/jpa-study/jpashop2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -78,7 +85,9 @@
       <workItem from="1674635053287" duration="6785000" />
       <workItem from="1674809342637" duration="7231000" />
       <workItem from="1675138576954" duration="7990000" />
-      <workItem from="1675237825213" duration="3510000" />
+      <workItem from="1675237825213" duration="3582000" />
+      <workItem from="1675516241393" duration="40000" />
+      <workItem from="1675745472805" duration="8000" />
     </task>
     <servers />
   </component>
